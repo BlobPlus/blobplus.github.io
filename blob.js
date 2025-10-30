@@ -1,3 +1,4 @@
+// keep in mind this is NOT chatgpt
 var BlobWorld = new function() {
 
 	// The bounds of the world
@@ -35,11 +36,8 @@ var BlobWorld = new function() {
        { fillStyle: 'rgba(60,255,60,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
        { fillStyle: 'rgba(0,170,0,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
        { fillStyle: 'rgba(255,170,60,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
-	   { fillStyle: 'rgba(0,0,255,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
-	   { fillStyle: 'rgba(60,60,60,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
-	   { fillStyle: 'rgba(255,170,170,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
-	   { fillStyle: 'rgba(255,0,255,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
-	   { fillStyle: 'rgba(0,255,255,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false }
+	   { fillStyle: 'rgba(0,230,110,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false }
+        
 	];
 
 	this.init = function() {
@@ -60,8 +58,8 @@ var BlobWorld = new function() {
 			canvas.addEventListener('touchend', documentTouchEndHandler, false);
 			window.addEventListener('resize', windowResizeHandler, false);
 
-			createBlob( { x: worldRect.width*0.15, y: worldRect.height*(Math.random()*0.2) }, { x: worldRect.width*0.011, y: 0 } );
-			createBlob( { x: worldRect.width*0.85, y: worldRect.height*(Math.random()*0.2) }, { x: -worldRect.width*0.011, y: 0 } );
+			createBlob( { x: worldRect.width*1, y: worldRect.height*(1) }, { x: 0, y: 0 } );
+			createBlob( { x: worldRect.width*1, y: worldRect.height*(1) }, { x: 0, y: 0 } );
 
 			windowResizeHandler();
 
