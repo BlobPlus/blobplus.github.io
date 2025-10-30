@@ -58,8 +58,8 @@ var BlobWorld = new function() {
 			canvas.addEventListener('touchend', documentTouchEndHandler, false);
 			window.addEventListener('resize', windowResizeHandler, false);
 
-			createBlob( { x: worldRect.width*0.15, y: worldRect.height*(Math.random()*0.2) }, { x: 5, y: 0 } );
-			createBlob( { x: worldRect.width*0.85, y: worldRect.height*(Math.random()*0.2) }, { x: -5, y: 0 } );
+			createBlob( { x: worldRect.width*0.15, y: worldRect.height*(Math.random()*0.2) }, { x: 50, y: 0 } );
+			createBlob( { x: worldRect.width*0.85, y: worldRect.height*(Math.random()*0.2) }, { x: -50, y: 0 } );
 
 			windowResizeHandler();
 
