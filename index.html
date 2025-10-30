@@ -257,150 +257,25 @@ document.addEventListener('keydown', e => {
 
 
 <script>
-document.addEventListener("keydown", e => {
-  if (e.altKey && e.key.toLowerCase() === "r") {
-    e.preventDefault();
-    (() => {
-      if (window.canvasRecorder) {
-        cancelAnimationFrame(window._canvasRAF);
-        window.canvasRecorder.stop();
-        window.canvasRecorder = null;
-        alert("Recording stopped. Saving...");
-        return;
-      }
+document.addEventListener('keydown', e => {
+  if (e.altKey && e.key.toLowerCase() === 'h') {
+    const panel = document.getElementById('panel');
+    if (!panel) return console.warn('No #panel element found');
 
-      const canvas = document.querySelector("canvas");
-      if (!canvas || !canvas.width || !canvas.height) {
-        return alert("No canvas found or canvas has zero size.");
-      }
+    const hidden = panel.dataset.hidden === 'true';
+    if (hidden) {
+      panel.style.removeProperty('display');
+      panel.style.removeProperty('visibility');
+      panel.style.removeProperty('opacity');
+      panel.dataset.hidden = 'false';
+    } else {
+      panel.style.setProperty('display', 'none', 'important');
+      panel.style.setProperty('visibility', 'hidden', 'important');
+      panel.style.setProperty('opacity', '0', 'important');
+      panel.dataset.hidden = 'true';
+    }
 
-      const filename = prompt("Enter filename (without extension):", "blobplus");
-      if (!filename) return;
-
-      const outCanvas = document.createElement("canvas");
-      outCanvas.width = canvas.width;
-      outCanvas.height = canvas.height;
-      outCanvas.style.display = "none";
-      document.body.appendChild(outCanvas);
-
-      const ctx = outCanvas.getContext("2d");
-
-      const loop = () => {
-        ctx.drawImage(canvas, 0, 0);
-        window._canvasRAF = requestAnimationFrame(loop);
-      };
-      loop();
-
-      // Start recording after 100ms to ensure a frame is drawn
-      setTimeout(() => {
-        const stream = outCanvas.captureStream(12);
-        if (!stream || stream.getVideoTracks().length === 0) {
-          alert("Failed to capture canvas stream.");
-          outCanvas.remove();
-          return;
-        }
-
-        const chunks = [];
-        let mime = "video/webm";
-        if (!MediaRecorder.isTypeSupported(mime)) {
-          mime = "video/webm;codecs=vp8";
-        }
-        const recorder = new MediaRecorder(stream, { mimeType: mime });
-
-        recorder.ondataavailable = e => {
-          if (e.data && e.data.size > 0) chunks.push(e.data);
-        };
-
-        recorder.onstop = () => {
-          if (!chunks.length) {
-            alert("No data recorded. Try recording a bit longer.");
-            outCanvas.remove();
-            return;
-          }
-          try {
-            const blob = new Blob(chunks, { type: mime });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = filename + ".webm";
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            URL.revokeObjectURL(url);
-          } catch (err) {
-            alert("Failed to save recording: " + err.message);
-          }
-          outCanvas.remove();
-        };
-
-        recorder.start();
-        window.canvasRecorder = recorder;
-        alert("Recording started (12 FPS).");
-      }, 100);
-    })();
-  }
-});
-</script>
-
-<script>
-document.addEventListener("keydown", e => {
-  if (e.altKey && e.key.toLowerCase() === "r") {
-    e.preventDefault();
-    (() => {
-      if (window.canvasRecorder) {
-        cancelAnimationFrame(window._canvasRAF);
-        window.canvasRecorder.stop();
-        window.canvasRecorder = null;
-        alert("Recording stopped. Saving...");
-        return;
-      }
-      const canvas = document.querySelector("canvas");
-      if (!canvas) return alert("No canvas found.");
-      const filename = prompt("Enter filename (without extension):", "blobplus");
-      if (!filename) return;
-      const outCanvas = Object.assign(document.createElement("canvas"), {
-        width: canvas.width,
-        height: canvas.height,
-        style: "display:none"
-      });
-      document.body.appendChild(outCanvas);
-      const ctx = outCanvas.getContext("2d");
-      const loop = () => {
-        ctx.drawImage(canvas, 0, 0);
-        window._canvasRAF = requestAnimationFrame(loop);
-      };
-      loop();
-      const stream = outCanvas.captureStream(12);
-      const chunks = [];
-      const recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
-      recorder.ondataavailable = e => {
-        if (e.data && e.data.size > 0) chunks.push(e.data);
-      };
-      recorder.onstop = () => {
-        if (!chunks.length) {
-          alert("No data recorded. Try recording a bit longer.");
-          outCanvas.remove();
-          return;
-        }
-        try {
-          const blob = new Blob(chunks, { type: "video/webm" });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = filename + ".webm";
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          URL.revokeObjectURL(url);
-        } catch (err) {
-          alert("Failed to save recording: " + err.message);
-        }
-        outCanvas.remove();
-      };
-      recorder.start();
-      window.canvasRecorder = recorder;
-      alert("Recording started (12 FPS).");
-    })();
+    console.log(`Panel is now ${panel.dataset.hidden === 'true' ? 'hidden' : 'visible'}`);
   }
 });
 </script>
