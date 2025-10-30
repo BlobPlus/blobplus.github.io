@@ -27,16 +27,16 @@ var BlobWorld = new function() {
 	var skinIndex = 0;
 	var skins = [
        { fillStyle: 'rgba(0,200,250,1.0)', strokeStyle: '#ffffff', lineWidth: 5, backgroundColor: '#222222', debug: false },
-       { fillStyle: '', strokeStyle: '', lineWidth: 0, backgroundColor: '#222222', debug: true },
+       { fillStyle: '#222222', strokeStyle: '', lineWidth: 0, backgroundColor: '#dddddd', debug: false },
 	   { fillStyle: 'rgba(0,0,0,0.1)', strokeStyle: 'rgba(255,255,255,1.0)', lineWidth: 6, backgroundColor: '#222222', debug: false },
-       { fillStyle: 'rgba(255,60,60,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
-       { fillStyle: 'rgba(255,255,0,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 4, backgroundColor: '#222222', debug: false },
-       { fillStyle: 'rgba(255,255,255,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 4, backgroundColor: '#000000', debug: false },
-       { fillStyle: 'rgba(0,0,0,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 4, backgroundColor: '#ffffff', debug: false },
-       { fillStyle: 'rgba(60,255,60,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
-       { fillStyle: 'rgba(0,170,0,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
-       { fillStyle: 'rgba(255,170,60,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
-	   { fillStyle: 'rgba(0,230,110,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false }
+       { fillStyle: 'rgba(255,60,60,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 0, backgroundColor: '#222222', debug: false },
+       { fillStyle: 'rgba(255,255,0,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 0, backgroundColor: '#222222', debug: false },
+       { fillStyle: 'rgba(255,255,255,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 0, backgroundColor: '#000000', debug: false },
+       { fillStyle: 'rgba(0,0,0,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 0, backgroundColor: '#ffffff', debug: false },
+       { fillStyle: 'rgba(60,255,60,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 0, backgroundColor: '#222222', debug: false },
+       { fillStyle: 'rgba(0,170,0,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 0, backgroundColor: '#222222', debug: false },
+       { fillStyle: 'rgba(255,170,60,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 0, backgroundColor: '#222222', debug: false },
+	   { fillStyle: 'rgba(0,230,110,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 0, backgroundColor: '#222222', debug: false }
         
 	];
 
@@ -71,8 +71,16 @@ var BlobWorld = new function() {
 document.addEventListener("keydown", e => {
   if (e.code === "KeyN") {
     e.preventDefault();
-    createBlob( { x: worldRect.width*0.15, y: worldRect.height*0.5}, { x: 0, y: 0.5 } );
+    createBlob( { x: worldRect.width, y: worldRect.height*0.5}, { x: 0, y: 3 } );
     console.log("New Blob Added");
+  }
+});
+
+document.addEventListener("keydown", e => {
+  if (e.code === "KeyM") {
+    e.preventDefault();
+    blobs[blobA].merge( blobs[blobB] );
+    console.log("Blob force merged");
   }
 });
 
