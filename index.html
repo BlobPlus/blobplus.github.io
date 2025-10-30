@@ -257,18 +257,16 @@ document.addEventListener('keydown', e => {
 
     </body>
 <script>
-document.addEventListener('keydown', e => {
-  if (e.altKey && e.key.toLowerCase() === 'h') {
-    e.preventDefault();
-    console.log('Alt+H pressed');
-    const panel = document.getElementById('panel');
-    if (panel) {
-      panel.style.display = panel.style.display === 'none' ? '' : 'none';
-      console.log('Panel toggled');
-    } else {
-      console.warn('No element with id="panel" found.');
+window.addEventListener('load', () => {
+  document.addEventListener('keydown', e => {
+    if (e.altKey && e.key.toLowerCase() === 'h') {
+      const panel = document.getElementById('panel');
+      if (panel) {
+        panel.style.display = panel.style.display === 'none' ? '' : 'none';
+      }
     }
-  }
+  });
 });
 </script>
+
 </html>
