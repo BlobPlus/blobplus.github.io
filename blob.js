@@ -84,13 +84,6 @@ document.addEventListener("keydown", e => {
   }
 });
 
-document.addEventListener("keydown", e => {
-  if (e.code === "KeyS") {
-    e.preventDefault();
-    splitBlob( 0 );
-    console.log("Blob #1 split");
-  }
-});
 
 
 
