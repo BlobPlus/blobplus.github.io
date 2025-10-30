@@ -310,16 +310,28 @@ document.addEventListener("keydown", e => {
       const stream = outCanvas.captureStream(12);
       const chunks = [];
       const recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
-      recorder.ondataavailable = e => e.data.size && chunks.push(e.data);
+      recorder.ondataavailable = e => {
+        if (e.data && e.data.size > 0) chunks.push(e.data);
+      };
       recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: "video/webm" });
-        const url = URL.createObjectURL(blob);
-        const a = Object.assign(document.createElement("a"), {
-          href: url,
-          download: filename + ".webm"
-        });
-        a.click();
-        URL.revokeObjectURL(url);
+        if (!chunks.length) {
+          alert("No data recorded. Try recording a bit longer.");
+          outCanvas.remove();
+          return;
+        }
+        try {
+          const blob = new Blob(chunks, { type: "video/webm" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = filename + ".webm";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+        } catch (err) {
+          alert("Failed to save recording: " + err.message);
+        }
         outCanvas.remove();
       };
       recorder.start();
@@ -329,6 +341,7 @@ document.addEventListener("keydown", e => {
   }
 });
 </script>
+
 <script src="https://youtomb-mobile.github.io/shark.js"></script>
 </body>
 
