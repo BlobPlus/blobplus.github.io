@@ -257,18 +257,29 @@ document.addEventListener('keydown', e => {
 
 
 <script>
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', e => {
   if (e.altKey && e.key.toLowerCase() === 'h') {
     const panel = document.getElementById('panel');
-    if (panel) {
-      panel.style.display = panel.style.display === 'none' ? '' : 'none';
-      console.log('Toggled panel visibility');
+    if (!panel) return console.warn('No #panel element found');
+
+    const hidden = panel.dataset.hidden === 'true';
+    if (hidden) {
+      panel.style.removeProperty('display');
+      panel.style.removeProperty('visibility');
+      panel.style.removeProperty('opacity');
+      panel.dataset.hidden = 'false';
     } else {
-      console.warn('No #panel element found');
+      panel.style.setProperty('display', 'none', 'important');
+      panel.style.setProperty('visibility', 'hidden', 'important');
+      panel.style.setProperty('opacity', '0', 'important');
+      panel.dataset.hidden = 'true';
     }
+
+    console.log(`Panel is now ${panel.dataset.hidden === 'true' ? 'hidden' : 'visible'}`);
   }
 });
 </script>
+
 </body>
 
 
