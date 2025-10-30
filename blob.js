@@ -67,6 +67,15 @@ var BlobWorld = new function() {
 		}
 	};
 
+document.addEventListener("keydown", e => {
+  if (e.code === "KeyN") {
+    e.preventDefault();
+    createBlob( { x: worldRect.width*0.15, y: worldRect.height*0.5) }, { x: 0, y: 0.5 } );
+    console.log("New Blob Added");
+  }
+});
+
+
 	function createBlob( position, velocity ) {
 		var blob = new Blob();
 
