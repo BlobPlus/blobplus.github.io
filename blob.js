@@ -64,13 +64,14 @@ var BlobWorld = new function() {
 			windowResizeHandler();
 
 			setInterval( loop, 1000 / 60 );
+			console.log("Site Main init made");
 		}
 	};
 
 document.addEventListener("keydown", e => {
   if (e.code === "KeyN") {
     e.preventDefault();
-    createBlob( { x: worldRect.width*0.15, y: worldRect.height*0.5) }, { x: 0, y: 0.5 } );
+    createBlob( { x: worldRect.width*0.15, y: worldRect.height*0.5}, { x: 0, y: 0.5 } );
     console.log("New Blob Added");
   }
 });
