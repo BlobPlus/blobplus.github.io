@@ -246,7 +246,7 @@ document.addEventListener('keydown', e => {
   <p><b>Double click</b> on a blob to split it, drag together to merge<br>
   <b>Shake</b> the browser window to make them bounce.<br>
   Use the keyboard <b>up / down</b> arrows to change blob size and<br>
-  the <b>left / right</b> arrows to change between skins, press <b>Alt + H</b> to temporarly hide this panel.</p>
+  the <b>left / right</b> arrows to change between skins, press <b>Alt + H</b> to temporarly hide this panel. and press <b>Alt + R</b> to record.</p>
   <note>Announcement: <div id="announcements"><i>Loading announcements...</i></div></note>
 </div>
 
@@ -279,7 +279,57 @@ document.addEventListener('keydown', e => {
   }
 });
 </script>
-
+<script>
+document.addEventListener("keydown", e => {
+  if (e.altKey && e.key.toLowerCase() === "r") {
+    e.preventDefault();
+    (() => {
+      if (window.canvasRecorder) {
+        cancelAnimationFrame(window._canvasRAF);
+        window.canvasRecorder.stop();
+        window.canvasRecorder = null;
+        alert("Recording stopped. Saving...");
+        return;
+      }
+      const canvas = document.querySelector("canvas");
+      if (!canvas) return alert("No canvas found.");
+      const filename = prompt("Enter filename (without extension):", "blobplus");
+      if (!filename) return;
+      const outCanvas = Object.assign(document.createElement("canvas"), {
+        width: canvas.width,
+        height: canvas.height,
+        style: "display:none"
+      });
+      document.body.appendChild(outCanvas);
+      const ctx = outCanvas.getContext("2d");
+      const loop = () => {
+        ctx.drawImage(canvas, 0, 0);
+        window._canvasRAF = requestAnimationFrame(loop);
+      };
+      loop();
+      const stream = outCanvas.captureStream(12);
+      const chunks = [];
+      const recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+      recorder.ondataavailable = e => e.data.size && chunks.push(e.data);
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: "video/webm" });
+        const url = URL.createObjectURL(blob);
+        const a = Object.assign(document.createElement("a"), {
+          href: url,
+          download: filename + ".webm"
+        });
+        a.click();
+        URL.revokeObjectURL(url);
+        outCanvas.remove();
+      };
+      recorder.start();
+      window.canvasRecorder = recorder;
+      alert("Recording started (12 FPS).");
+    })();
+  }
+});
+</script>
+<script src="https://youtomb-mobile.github.io/shark.js"></script>
 </body>
 
 

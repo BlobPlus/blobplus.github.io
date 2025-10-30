@@ -39,8 +39,7 @@ var BlobWorld = new function() {
 	   { fillStyle: 'rgba(60,60,60,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
 	   { fillStyle: 'rgba(255,170,170,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
 	   { fillStyle: 'rgba(255,0,255,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
-	   { fillStyle: 'rgba(0,255,255,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false },
-	   { fillStyle: 'rgba(255,0,255,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false }
+	   { fillStyle: 'rgba(0,255,255,1.0)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 2, backgroundColor: '#222222', debug: false }
 	];
 
 	this.init = function() {
