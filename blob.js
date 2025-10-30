@@ -22,7 +22,8 @@ var BlobWorld = new function() {
 	var gravity = { x: 0, y: 1.2 };
 
 	// A pair of blobs that should be merged
-	var mergeQueue = { blobA: -1, blobB: -1 };
+	var mergeQueue = { blobA: -1
+		, blobB: -1 };
 
 	var skinIndex = 0;
 	var skins = [
@@ -32,7 +33,7 @@ var BlobWorld = new function() {
        { fillStyle: 'rgba(255,60,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
        { fillStyle: 'rgba(255,255,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
        { fillStyle: 'rgba(255,255,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
-       { fillStyle: '', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#ffffff', debug: false },
+       { fillStyle: '#000', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#ffffff', debug: false },
        { fillStyle: 'rgba(60,255,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
        { fillStyle: 'rgba(0,170,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
        { fillStyle: 'rgba(255,170,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
@@ -77,10 +78,10 @@ document.addEventListener("keydown", e => {
 });
 
 document.addEventListener("keydown", e => {
-  if (e.code === "KeyM") {
+  if (e.code === "KeyD") {
     e.preventDefault();
-    mergeBlobs( 0, 1 );
-    console.log("Blob #1 merged with Blob #2");
+    blobs.splice( 0, 1 );
+    console.log("Blob #1 deleted");
   }
 });
 
@@ -130,8 +131,8 @@ document.addEventListener("keydown", e => {
 	}
 
 	function documentMouseMoveHandler(event) {
-		mouseX = event.clientX - (window.innerWidth - worldRect.width) * .5;
-		mouseY = event.clientY - (window.innerHeight - worldRect.height) * .5;
+		mouseX = event.clientX - (window.innerWidth - worldRect.width);
+		mouseY = event.clientY - (window.innerHeight - worldRect.height);
 	}
 
 	function documentMouseDownHandler(event) {
