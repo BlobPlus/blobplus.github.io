@@ -257,13 +257,11 @@ document.addEventListener('keydown', e => {
 
     </body>
 <script>
-window.addEventListener('load', () => {
+document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', e => {
     if (e.altKey && e.key.toLowerCase() === 'h') {
       const panel = document.getElementById('panel');
-      if (panel) {
-        panel.style.display = panel.style.display === 'none' ? '' : 'none';
-      }
+      if (panel) panel.style.display = panel.style.display === 'none' ? '' : 'none';
     }
   });
 });
