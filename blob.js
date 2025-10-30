@@ -22,10 +22,9 @@ var BlobWorld = new function() {
 	var gravity = { x: 0, y: 1.2 };
 
 	// A pair of blobs that should be merged
-	var mergeQueue = { blobA: -1
-		, blobB: -1 };
+	var mergeQueue = { blobA: -1, blobB: -1 };
 
-	var skinIndex = 0;
+	var skinIndex = 10;
 	var skins = [
        { fillStyle: 'rgba(0,200,250,1.0)', strokeStyle: '#ffffff', lineWidth: 5, backgroundColor: '#222222', debug: false },
        { fillStyle: '#222222', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
