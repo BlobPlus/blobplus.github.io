@@ -78,6 +78,14 @@ document.addEventListener("keydown", e => {
 });
 
 document.addEventListener("keydown", e => {
+  if (e.code === "KeyM") {
+    e.preventDefault();
+    mergeBlobs(0, 1)
+    console.log("Blobs merged");
+  }
+});
+
+document.addEventListener("keydown", e => {
   if (e.code === "KeyD") {
     e.preventDefault();
     blobs.splice( 0, 1 );
