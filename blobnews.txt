@@ -1,1 +1,1 @@
-ITS RELEASED
+we have added new colors, the blob removing now clears the canvas after the blob is removed.

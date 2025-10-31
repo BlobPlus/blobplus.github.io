@@ -26,19 +26,27 @@ var BlobWorld = new function() {
 
 	var skinIndex = 10;
 	var skins = [
-       { fillStyle: 'rgba(0,200,250,1.0)', strokeStyle: '#ffffff', lineWidth: 5, backgroundColor: '#222222', debug: false },
-       { fillStyle: '#222222', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
-	   { fillStyle: 'rgba(0,0,0,0.1)', strokeStyle: 'rgba(255,255,255,1.0)', lineWidth: 6, backgroundColor: '#222222', debug: false },
-       { fillStyle: 'rgba(255,60,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-       { fillStyle: 'rgba(255,255,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-       { fillStyle: 'rgba(255,255,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
-       { fillStyle: '#000', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#ffffff', debug: false },
-       { fillStyle: 'rgba(60,255,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-       { fillStyle: 'rgba(0,170,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-       { fillStyle: 'rgba(255,170,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-	   { fillStyle: 'rgba(0,230,110,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false }
-        
-	];
+    { fillStyle: 'rgba(0,200,250,1.0)', strokeStyle: '#ffffff', lineWidth: 5, backgroundColor: '#222222', debug: false },
+    { fillStyle: '#222222', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+    { fillStyle: 'rgba(0,0,0,0.1)', strokeStyle: 'rgba(255,255,255,1.0)', lineWidth: 6, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(255,60,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(255,255,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(255,255,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
+    { fillStyle: '#000', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#ffffff', debug: false },
+    { fillStyle: 'rgba(60,255,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(0,170,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(255,170,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(0,230,110,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(170,0,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(255,0,170,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(0,255,170,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(255,120,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(0,120,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(120,0,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+    { fillStyle: 'rgba(255,0,0,0.5)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 2, backgroundColor: '#111111', debug: false },
+    { fillStyle: 'rgba(0,255,255,0.5)', strokeStyle: 'rgba(0,0,0,0.5)', lineWidth: 3, backgroundColor: '#333333', debug: false },
+    { fillStyle: 'rgba(255,255,255,0.2)', strokeStyle: 'rgba(0,0,0,0.5)', lineWidth: 4, backgroundColor: '#444444', debug: false }
+];
 
 	this.init = function() {
 
@@ -88,6 +96,7 @@ document.addEventListener("keydown", e => {
   if (e.code === "KeyD") {
     e.preventDefault();
     blobs.splice( 0, 1 );
+	canvascollab.CanvasClear()
     console.log("Blob #1 deleted");
   }
 });
@@ -762,6 +771,17 @@ function distanceBetween(p1,p2) {
 	var dx = p2.x-p1.x;
 	var dy = p2.y-p1.y;
 	return Math.sqrt(dx*dx + dy*dy);
+}
+
+var canvascollab = new function() {
+
+    var canvas = document.querySelector('canvas');
+    var ctx = canvas.getContext('2d');
+
+    this.CanvasClear = function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
 }
 
 
