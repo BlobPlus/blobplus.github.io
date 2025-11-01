@@ -596,6 +596,10 @@ for( j = 0; j < node.joints.length; j++ ) {
     context.drawImage(surfaceImgm, surfacePositionm.x, surfacePositionm.y, surfaceWidthm, surfaceHeightm);
 }
 		}
+context.fillStyle = blob.skin.fillStyle;
+context.strokeStyle = blob.skin.strokeStyle;
+context.lineWidth = blob.skin.lineWidth;
+
 	}
 
 
