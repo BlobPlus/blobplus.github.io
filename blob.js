@@ -25,60 +25,28 @@ var BlobWorld = new function() {
 	var mergeQueue = { blobA: -1, blobB: -1 };
 
 	var skinIndex = 10;
-	var skins = [
-{ fillStyle: 'rgba(0,200,250,1.0)', strokeStyle: '#ffffff', lineWidth: 5, backgroundColor: '#222222', debug: false },
-{ fillStyle: '#222222', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
-{ fillStyle: 'rgba(0,0,0,0.1)', strokeStyle: 'rgba(255,255,255,1.0)', lineWidth: 6, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(255,60,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(255,255,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(255,255,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
-{ fillStyle: '#000', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#ffffff', debug: false },
-{ fillStyle: 'rgba(60,255,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(0,170,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(255,170,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(0,230,110,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(170,0,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(255,0,170,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(0,255,170,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(255,120,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(0,120,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(120,0,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(255,0,0,0.5)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 2, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(0,255,255,0.5)', strokeStyle: 'rgba(0,0,0,0.5)', lineWidth: 3, backgroundColor: '#333333', debug: false },
-{ fillStyle: 'rgba(255,255,255,0.2)', strokeStyle: 'rgba(0,0,0,0.5)', lineWidth: 4, backgroundColor: '#444444', debug: false },
-{ fillStyle: 'rgba(255,50,200,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(100,255,50,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(50,100,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(255,200,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
-{ fillStyle: 'rgba(0,255,200,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
-{ fillStyle: 'rgba(255,0,100,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
-{ fillStyle: 'rgba(255,255,255,0.8)', strokeStyle: '#000000', lineWidth: 1, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(255,150,150,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(150,255,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(150,150,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(255,255,150,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(200,0,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(0,200,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(255,100,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(0,255,100,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(255,0,255,0.6)', strokeStyle: 'rgba(255,255,255,0.3)', lineWidth: 3, backgroundColor: '#000000', debug: false },
-{ fillStyle: 'rgba(0,255,0,0.6)', strokeStyle: 'rgba(255,255,255,0.3)', lineWidth: 3, backgroundColor: '#000000', debug: false },
-{ fillStyle: 'rgba(0,0,255,0.6)', strokeStyle: 'rgba(255,255,255,0.3)', lineWidth: 3, backgroundColor: '#000000', debug: false },
-{ fillStyle: 'rgba(255,128,0,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(0,128,255,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(128,0,255,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(255,0,128,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(128,255,0,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(0,255,128,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(255,255,255,0.05)', strokeStyle: '#00ffff', lineWidth: 2, backgroundColor: '#000000', debug: false },
-{ fillStyle: 'rgba(255,255,255,0.05)', strokeStyle: '#ff00ff', lineWidth: 2, backgroundColor: '#000000', debug: false },
-{ fillStyle: 'rgba(255,255,255,0.05)', strokeStyle: '#ffff00', lineWidth: 2, backgroundColor: '#000000', debug: false },
-{ fillStyle: 'rgba(0,0,0,0.2)', strokeStyle: '#ffffff', lineWidth: 2, backgroundColor: '#222222', debug: false },
-{ fillStyle: 'rgba(255,255,255,0.1)', strokeStyle: '#00ff00', lineWidth: 2, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(255,255,255,0.1)', strokeStyle: '#ff0000', lineWidth: 2, backgroundColor: '#111111', debug: false },
-{ fillStyle: 'rgba(255,255,255,0.1)', strokeStyle: '#0000ff', lineWidth: 2, backgroundColor: '#111111', debug: false }
-]
-;
+var surfaceImg = new Image();
+surfaceImg.src = "slime.png";
+var surfacePosition = { x: 50, y: worldRect.height*0.73 };
+var surfaceWidth = 200;
+var surfaceHeight = 200;
+var surfaceLoaded = false;
+
+surfaceImg.onload = function() {
+    surfaceLoaded = true; // mark that the image is ready
+};
+
+var surfaceImgm = new Image();
+surfaceImgm.src = "slime2.png";
+var surfacePositionm = { x: worldRect.height*0.5*(3.5), y: worldRect.height*0.73 };
+var surfaceWidthm = 200;
+var surfaceHeightm = 200;
+var surfaceLoadedm = false;
+
+surfaceImgm.onload = function() {
+    surfaceLoadedm = true; // mark that the image is ready
+};
+
 
 	this.init = function() {
 
@@ -434,6 +402,23 @@ document.addEventListener("keydown", e => {
 
 				node.ghost.x = node.position.x;
 				node.ghost.y = node.position.y;
+if(node.position.x > surfacePosition.x &&
+   node.position.x < surfacePosition.x + surfaceWidth &&
+   node.position.y > surfacePosition.y &&
+   node.position.y < surfacePosition.y + surfaceHeight) {
+
+    // Push the node outside the image
+    if(node.position.y < surfacePosition.y + surfaceHeight/2) {
+        node.position.y = surfacePosition.y - 1; // stick on top
+    } else {
+        node.position.y = surfacePosition.y + surfaceHeight + 1; // stick below
+    }
+
+    // Dampen blob velocity
+    blob.velocity.y *= 0.5;
+    blob.velocity.x *= 0.8;
+}
+var maxStretch = 512;
 			}
 
 			var dragNode = blob.nodes[blob.dragNodeIndex];
@@ -443,7 +428,8 @@ document.addEventListener("keydown", e => {
 
 				blob.updateNormals();
 			}
-
+var stickyFactor = 1.2;  // was 0.3, higher = more sticky
+var extraStrength = 1.5; // multiply joint.strength for extra pull
 			// Calculation loop
 			for (i = 0, len = blob.nodes.length; i < len; i++) {
 				node = blob.nodes[i];
@@ -457,19 +443,35 @@ document.addEventListener("keydown", e => {
 				position = { x: blob.position.x, y: blob.position.y };
 
 				// Apply the joints
-				for( j = 0; j < node.joints.length; j++ ) {
-					joint = node.joints[j];
+for( j = 0; j < node.joints.length; j++ ) {
+    joint = node.joints[j];
 
-					// Determine the strain on the joints
-					var strainX = ( (joint.node.ghost.x - node.ghost.x) - (joint.node.normal.x - node.normal.x) );
-					var strainY = ( (joint.node.ghost.y - node.ghost.y) - (joint.node.normal.y - node.normal.y) );
+    var strainX = ( (joint.node.ghost.x - node.ghost.x) - (joint.node.normal.x - node.normal.x) );
+    var strainY = ( (joint.node.ghost.y - node.ghost.y) - (joint.node.normal.y - node.normal.y) );
 
-					joint.strain.x += ( strainX - joint.strain.x ) * 0.3;
-					joint.strain.y += ( strainY - joint.strain.y ) * 0.3;
+    joint.strain.x += ( strainX - joint.strain.x ) * stickyFactor;
+    joint.strain.y += ( strainY - joint.strain.y ) * stickyFactor;
 
-					position.x += joint.strain.x * joint.strength;
-					position.y += joint.strain.y * joint.strength;
-				}
+    position.x += joint.strain.x * joint.strength * extraStrength;
+    position.y += joint.strain.y * joint.strength * extraStrength;
+}
+            if(node.position.x > surfacePositionm.x &&
+   node.position.x < surfacePositionm.x + surfaceWidthm &&
+   node.position.y > surfacePositionm.y &&
+   node.position.y < surfacePositionm.y + surfaceHeightm) {
+
+    // Push the node outside the image
+    if(node.position.y < surfacePositionm.y + surfaceHeightm/2) {
+        node.position.y = surfacePositionm.y - 1; // stick on top
+    } else {
+        node.position.y = surfacePositionm.y + surfaceHeightm + 1; // stick below
+    }
+
+    // Dampen blob velocity
+    blob.velocity.y *= 0.1;
+    blob.velocity.x *= 0.3;
+}
+
 
 				// Offset by the normal
 				position.x += node.normal.x;
@@ -509,6 +511,8 @@ document.addEventListener("keydown", e => {
 	function paint() {
 
 		var skin = skins[skinIndex];
+
+        
 
 		// The area around the dirty region to include in the clear
 		var dirtySpread = 80;
@@ -583,6 +587,12 @@ document.addEventListener("keydown", e => {
 
 			context.stroke();
 			context.fill();
+            if(surfaceLoaded) {
+    context.drawImage(surfaceImg, surfacePosition.x, surfacePosition.y, surfaceWidth, surfaceHeight);
+}
+            if(surfaceLoadedm) {
+    context.drawImage(surfaceImgm, surfacePositionm.x, surfacePositionm.y, surfaceWidthm, surfaceHeightm);
+}
 		}
 	}
 
@@ -816,5 +826,40 @@ var canvascollab = new function() {
 
 }
 
+BlobWorld.loadSkins = async function() {
+    let skinURL = localStorage.getItem('customSkinURL') || 'skin.json'; // default to skin.json
 
-BlobWorld.init();
+    try {
+        const response = await fetch(skinURL);
+        if (!response.ok) throw new Error("Failed to load skin JSON");
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+            skins = data; // override global skins array
+            skinIndex = 0;
+            document.body.style.backgroundColor = skins[skinIndex].backgroundColor;
+            console.log("Skins loaded from:", skinURL);
+        } else {
+            console.warn("Skin JSON is not an array, using previous skins");
+        }
+    } catch (e) {
+        console.error("Error loading skins:", e);
+    }
+};
+
+// Alt + S keybind to set custom skin URL
+document.addEventListener("keydown", async e => {
+    if (e.altKey && e.code === "KeyS") {
+        e.preventDefault();
+        let url = prompt("Enter custom skin JSON URL:");
+        if (url) {
+            localStorage.setItem("customSkinURL", url);
+            await BlobWorld.loadSkins();
+        }
+    }
+});
+
+// Call loadSkins somewhere during your existing init (after canvas setup)
+BlobWorld.loadSkins();
+
+BlobWorld.init
