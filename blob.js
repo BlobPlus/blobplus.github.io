@@ -1,4 +1,5 @@
-//not chatgptvar BlobWorld = new function() {
+//not chatgpt
+var BlobWorld = new function() {
 
 	// The bounds of the world
 	var worldRect = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
