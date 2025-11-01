@@ -70,7 +70,7 @@ surfaceImgm.onload = function() {
 			createBlob( { x: worldRect.width*0.85, y: worldRect.height*(Math.random()*0.2) }, { x: -50, y: 0 } );
 
 			windowResizeHandler();
-
+paint();
 			setInterval( loop, 1000 / 60 );
 			console.log("Site Main init made");
 		}
