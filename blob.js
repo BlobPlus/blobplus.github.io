@@ -114,6 +114,8 @@ document.addEventListener("keydown", e => {
 		blob.velocity.y = velocity.y;
 
 		blob.generateNodes();
+blob.skin = BlobWorld.skins[0]; // or some index
+
 
 		blobs.push( blob );
 	}
