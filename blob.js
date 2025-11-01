@@ -1,5 +1,4 @@
-// keep in mind this is NOT chatgpt
-var BlobWorld = new function() {
+//not chatgptvar BlobWorld = new function() {
 
 	// The bounds of the world
 	var worldRect = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
@@ -25,6 +24,80 @@ var BlobWorld = new function() {
 	var mergeQueue = { blobA: -1, blobB: -1 };
 
 	var skinIndex = 10;
+	var skins = [
+  { fillStyle: 'rgba(0,200,250,1.0)', strokeStyle: '#ffffff', lineWidth: 5, backgroundColor: '#222222', debug: false },
+  { fillStyle: '#222222', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(0,0,0,0.1)', strokeStyle: 'rgba(255,255,255,1.0)', lineWidth: 6, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(255,60,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(255,255,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(255,255,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
+  { fillStyle: '#000', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#ffffff', debug: false },
+  { fillStyle: 'rgba(60,255,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(0,170,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(255,170,60,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(0,230,110,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(170,0,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(255,0,170,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(0,255,170,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(255,120,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(0,120,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(120,0,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(255,0,0,0.5)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 2, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(0,255,255,0.5)', strokeStyle: 'rgba(0,0,0,0.5)', lineWidth: 3, backgroundColor: '#333333', debug: false },
+  { fillStyle: 'rgba(255,255,255,0.2)', strokeStyle: 'rgba(0,0,0,0.5)', lineWidth: 4, backgroundColor: '#444444', debug: false },
+  { fillStyle: 'rgba(255,50,200,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(100,255,50,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(50,100,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(255,200,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
+  { fillStyle: 'rgba(0,255,200,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
+  { fillStyle: 'rgba(255,0,100,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
+  { fillStyle: 'rgba(255,255,255,0.8)', strokeStyle: '#000000', lineWidth: 1, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(255,150,150,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(150,255,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(150,150,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(255,255,150,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(200,0,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(0,200,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(255,100,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(0,255,100,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(255,0,255,0.6)', strokeStyle: 'rgba(255,255,255,0.3)', lineWidth: 3, backgroundColor: '#000000', debug: false },
+  { fillStyle: 'rgba(0,255,0,0.6)', strokeStyle: 'rgba(255,255,255,0.3)', lineWidth: 3, backgroundColor: '#000000', debug: false },
+  { fillStyle: 'rgba(0,0,255,0.6)', strokeStyle: 'rgba(255,255,255,0.3)', lineWidth: 3, backgroundColor: '#000000', debug: false },
+  { fillStyle: 'rgba(255,128,0,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(0,128,255,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(128,0,255,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(255,0,128,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(128,255,0,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(0,255,128,0.9)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(255,255,255,0.05)', strokeStyle: '#00ffff', lineWidth: 2, backgroundColor: '#000000', debug: false },
+  { fillStyle: 'rgba(255,255,255,0.05)', strokeStyle: '#ff00ff', lineWidth: 2, backgroundColor: '#000000', debug: false },
+  { fillStyle: 'rgba(255,255,255,0.05)', strokeStyle: '#ffff00', lineWidth: 2, backgroundColor: '#000000', debug: false },
+  { fillStyle: 'rgba(0,0,0,0.2)', strokeStyle: '#ffffff', lineWidth: 2, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(255,255,255,0.1)', strokeStyle: '#00ff00', lineWidth: 2, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(255,255,255,0.1)', strokeStyle: '#ff0000', lineWidth: 2, backgroundColor: '#111111', debug: false },
+  { fillStyle: 'rgba(255,255,255,0.1)', strokeStyle: '#0000ff', lineWidth: 2, backgroundColor: '#111111', debug: false },
+//*e*//
+  { fillStyle: 'rgba(255,55,5,1.0)', strokeStyle: '#000000', lineWidth: 5, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: '#dddddd', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#222222', debug: false },
+  { fillStyle: 'rgba(255,255,255,0.9)', strokeStyle: 'rgba(0,0,0,1.0)', lineWidth: 6, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(0,195,195,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(0,0,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(0,0,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#ffffff', debug: false },
+  { fillStyle: '#fff', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#000000', debug: false },
+  { fillStyle: 'rgba(195,0,195,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(255,85,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(0,85,195,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(255,25,145,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(85,255,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(0,255,85,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(255,255,85,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(0,135,255,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(255,135,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
+  { fillStyle: 'rgba(135,255,0,0.5)', strokeStyle: 'rgba(0,0,0,0.5)', lineWidth: 2, backgroundColor: '#eeeeee', debug: false },
+  { fillStyle: 'rgba(255,0,0,0.5)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 3, backgroundColor: '#cccccc', debug: false },
+  { fillStyle: 'rgba(0,0,0,0.8)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 4, backgroundColor: '#bbbbbb', debug: false }
+]
+;
 var surfaceImg = new Image();
 surfaceImg.src = "slime.png";
 var surfacePosition = { x: 50, y: worldRect.height*0.73 };
@@ -70,7 +143,7 @@ surfaceImgm.onload = function() {
 			createBlob( { x: worldRect.width*0.85, y: worldRect.height*(Math.random()*0.2) }, { x: -50, y: 0 } );
 
 			windowResizeHandler();
-paint();
+
 			setInterval( loop, 1000 / 60 );
 			console.log("Site Main init made");
 		}
@@ -114,8 +187,6 @@ document.addEventListener("keydown", e => {
 		blob.velocity.y = velocity.y;
 
 		blob.generateNodes();
-blob.skin = BlobWorld.skins[0]; // or some index
-
 
 		blobs.push( blob );
 	}
@@ -596,10 +667,6 @@ for( j = 0; j < node.joints.length; j++ ) {
     context.drawImage(surfaceImgm, surfacePositionm.x, surfacePositionm.y, surfaceWidthm, surfaceHeightm);
 }
 		}
-context.fillStyle = blob.skin.fillStyle;
-context.strokeStyle = blob.skin.strokeStyle;
-context.lineWidth = blob.skin.lineWidth;
-
 	}
 
 
@@ -832,40 +899,5 @@ var canvascollab = new function() {
 
 }
 
-BlobWorld.loadSkins = async function() {
-    let skinURL = localStorage.getItem('customSkinURL') || 'skin.json'; // default to skin.json
 
-    try {
-        const response = await fetch(skinURL);
-        if (!response.ok) throw new Error("Failed to load skin JSON");
-        const data = await response.json();
-
-        if (Array.isArray(data)) {
-            skins = data; // override global skins array
-            skinIndex = 0;
-            document.body.style.backgroundColor = skins[skinIndex].backgroundColor;
-            console.log("Skins loaded from:", skinURL);
-        } else {
-            console.warn("Skin JSON is not an array, using previous skins");
-        }
-    } catch (e) {
-        console.error("Error loading skins:", e);
-    }
-};
-
-// Alt + S keybind to set custom skin URL
-document.addEventListener("keydown", async e => {
-    if (e.altKey && e.code === "KeyS") {
-        e.preventDefault();
-        let url = prompt("Enter custom skin JSON URL:");
-        if (url) {
-            localStorage.setItem("customSkinURL", url);
-            await BlobWorld.loadSkins();
-        }
-    }
-});
-
-// Call loadSkins somewhere during your existing init (after canvas setup)
-BlobWorld.loadSkins();
-
-BlobWorld.init
+BlobWorld.init();
