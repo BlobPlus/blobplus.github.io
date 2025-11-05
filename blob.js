@@ -151,7 +151,7 @@ surfaceImgm.onload = function() {
 	};
 
 document.addEventListener("keydown", e => {
-  if (e.code === "KeyK") {
+  if (e.code === "KeyN") {
     e.preventDefault();
     createBlob( { x: (worldRect.width / 2), y: worldRect.height*0.5}, { x: 0, y: 9 } );
     console.log("New Blob Added");
