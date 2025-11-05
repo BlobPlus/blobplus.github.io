@@ -459,10 +459,6 @@ document.addEventListener("keydown", e => {
 
 
 
-				// Offset by the normal
-				position.x += node.normal.x;
-				position.y += node.normal.y;
-
 				// Previous and next drag node index
 				var pdni = getArrayIndexByOffset( blob.nodes, blob.dragNodeIndex, -1 );
 				var ndni = getArrayIndexByOffset( blob.nodes, blob.dragNodeIndex, 1 );
