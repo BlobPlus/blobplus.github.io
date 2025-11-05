@@ -99,27 +99,7 @@ var BlobWorld = new function() {
   { fillStyle: 'rgba(0,0,0,0.8)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 4, backgroundColor: '#bbbbbb', debug: false }
 ]
 ;
-var surfaceImg = new Image();
-surfaceImg.src = "slime.png";
-var surfacePosition = { x: 50, y: worldRect.height*0.73 };
-var surfaceWidth = 200;
-var surfaceHeight = 200;
-var surfaceLoaded = false;
 
-surfaceImg.onload = function() {
-    surfaceLoaded = true; // mark that the image is ready
-};
-
-var surfaceImgm = new Image();
-surfaceImgm.src = "slime2.png";
-var surfacePositionm = { x: worldRect.height*0.5*(3.5), y: worldRect.height*0.73 };
-var surfaceWidthm = 200;
-var surfaceHeightm = 200;
-var surfaceLoadedm = false;
-
-surfaceImgm.onload = function() {
-    surfaceLoadedm = true; // mark that the image is ready
-};
 
 
 	this.init = function() {
@@ -661,12 +641,7 @@ for( j = 0; j < node.joints.length; j++ ) {
 
 			context.stroke();
 			context.fill();
-            if(surfaceLoaded) {
-    context.drawImage(surfaceImg, surfacePosition.x, surfacePosition.y, surfaceWidth, surfaceHeight);
-}
-            if(surfaceLoadedm) {
-    context.drawImage(surfaceImgm, surfacePositionm.x, surfacePositionm.y, surfaceWidthm, surfaceHeightm);
-}
+
 		}
 	}
 
