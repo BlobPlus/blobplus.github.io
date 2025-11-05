@@ -471,9 +471,7 @@ document.addEventListener("keydown", e => {
 					position.y += ( mouseY - position.y ) * ps;
 				}
 
-				// Apply the calculated position to the node (with easing)
-				node.position.x += ( position.x - node.position.x ) * 0.1;
-				node.position.y += ( position.y - node.position.y ) * 0.1;
+
 
 				// Limit the node position to screen bounds
 				node.position.x = Math.max( Math.min( node.position.x, worldRect.x + worldRect.width ), worldRect.x );
