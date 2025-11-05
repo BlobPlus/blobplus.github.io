@@ -465,11 +465,11 @@ document.addEventListener("keydown", e => {
 
 				// Apply the drag offset (if applicable)
 				if( blob.dragNodeIndex != -1 && ( i == blob.dragNodeIndex || ( blob.nodes.length > 8 && ( i == pdni || i == ndni ) ) ) ) {
-					var ps = i == blob.dragNodeIndex ? 0.7 : 0.5;
+    var ps = i == blob.dragNodeIndex ? 0.7 : 0.5;
+    node.position.x += ( mouseX - node.position.x ) * ps;
+    node.position.y += ( mouseY - node.position.y ) * ps;
+}
 
-					position.x += ( mouseX - position.x ) * ps;
-					position.y += ( mouseY - position.y ) * ps;
-				}
 
 
 
@@ -521,6 +521,7 @@ document.addEventListener("keydown", e => {
 				context.strokeStyle = skin.strokeStyle;
 				context.lineWidth = skin.lineWidth;
 			}
+context.beginPath();
 
 			var cn = getArrayElementByOffset( blob.nodes, 0, -1 ); // current node
 			var nn = getArrayElementByOffset( blob.nodes, 0, 0 ); // next node
