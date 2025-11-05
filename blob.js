@@ -99,7 +99,27 @@ var BlobWorld = new function() {
   { fillStyle: 'rgba(0,0,0,0.8)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 4, backgroundColor: '#bbbbbb', debug: false }
 ]
 ;
+var surfaceImg = new Image();
+surfaceImg.src = "slime.png";
+var surfacePosition = { x: 50, y: worldRect.height*0.73 };
+var surfaceWidth = 200;
+var surfaceHeight = 200;
+var surfaceLoaded = false;
 
+surfaceImg.onload = function() {
+    surfaceLoaded = true; // mark that the image is ready
+};
+
+var surfaceImgm = new Image();
+surfaceImgm.src = "slime2.png";
+var surfacePositionm = { x: worldRect.height*0.5*(3.5), y: worldRect.height*0.73 };
+var surfaceWidthm = 200;
+var surfaceHeightm = 200;
+var surfaceLoadedm = false;
+
+surfaceImgm.onload = function() {
+    surfaceLoadedm = true; // mark that the image is ready
+};
 
 
 	this.init = function() {
@@ -456,8 +476,80 @@ document.addEventListener("keydown", e => {
 
 				node.ghost.x = node.position.x;
 				node.ghost.y = node.position.y;
+if(node.position.x > surfacePosition.x &&
+   node.position.x < surfacePosition.x + surfaceWidth &&
+   node.position.y > surfacePosition.y &&
+   node.position.y < surfacePosition.y + surfaceHeight) {
+
+    // Push the node outside the image
+    if(node.position.y < surfacePosition.y + surfaceHeight/2) {
+        node.position.y = surfacePosition.y - 1; // stick on top
+    } else {
+        node.position.y = surfacePosition.y + surfaceHeight + 1; // stick below
+    }
+
+    // Dampen blob velocity
+    blob.velocity.y *= 0.5;
+    blob.velocity.x *= 0.8;
+}
+var maxStretch = 512;
+			}
+
+			var dragNode = blob.nodes[blob.dragNodeIndex];
+			if( dragNode ) {
+				blob.rotation.target = Math.atan2( mouseY - blob.position.y - ( blob.radius * 4 ), mouseX - blob.position.x ); // Get angle between blob & mouse
+				blob.rotation.current += ( blob.rotation.target - blob.rotation.current ) * 0.2;
+
+				blob.updateNormals();
+			}
+var stickyFactor = 1.2;  // was 0.3, higher = more sticky
+var extraStrength = 1.5; // multiply joint.strength for extra pull
+			// Calculation loop
+			for (i = 0, len = blob.nodes.length; i < len; i++) {
+				node = blob.nodes[i];
+
+				// Move towards the normal target
+				node.normal.x += ( node.normalTarget.x - node.normal.x ) * 0.05;
+				node.normal.y += ( node.normalTarget.y - node.normal.y ) * 0.05;
+
+				// This point will be used as the new position for this node,
+				// after all factors have been applied
+				position = { x: blob.position.x, y: blob.position.y };
+
+				// Apply the joints
+for( j = 0; j < node.joints.length; j++ ) {
+    joint = node.joints[j];
+
+    var strainX = ( (joint.node.ghost.x - node.ghost.x) - (joint.node.normal.x - node.normal.x) );
+    var strainY = ( (joint.node.ghost.y - node.ghost.y) - (joint.node.normal.y - node.normal.y) );
+
+    joint.strain.x += ( strainX - joint.strain.x ) * stickyFactor;
+    joint.strain.y += ( strainY - joint.strain.y ) * stickyFactor;
+
+    position.x += joint.strain.x * joint.strength * extraStrength;
+    position.y += joint.strain.y * joint.strength * extraStrength;
+}
+            if(node.position.x > surfacePositionm.x &&
+   node.position.x < surfacePositionm.x + surfaceWidthm &&
+   node.position.y > surfacePositionm.y &&
+   node.position.y < surfacePositionm.y + surfaceHeightm) {
+
+    // Push the node outside the image
+    if(node.position.y < surfacePositionm.y + surfaceHeightm/2) {
+        node.position.y = surfacePositionm.y - 1; // stick on top
+    } else {
+        node.position.y = surfacePositionm.y + surfaceHeightm + 1; // stick below
+    }
+
+    // Dampen blob velocity
+    blob.velocity.y *= 0.1;
+    blob.velocity.x *= 0.3;
+}
 
 
+				// Offset by the normal
+				position.x += node.normal.x;
+				position.y += node.normal.y;
 
 				// Previous and next drag node index
 				var pdni = getArrayIndexByOffset( blob.nodes, blob.dragNodeIndex, -1 );
@@ -465,13 +557,15 @@ document.addEventListener("keydown", e => {
 
 				// Apply the drag offset (if applicable)
 				if( blob.dragNodeIndex != -1 && ( i == blob.dragNodeIndex || ( blob.nodes.length > 8 && ( i == pdni || i == ndni ) ) ) ) {
-    var ps = i == blob.dragNodeIndex ? 0.7 : 0.5;
-    node.position.x += ( mouseX - node.position.x ) * ps;
-    node.position.y += ( mouseY - node.position.y ) * ps;
-}
+					var ps = i == blob.dragNodeIndex ? 0.7 : 0.5;
 
+					position.x += ( mouseX - position.x ) * ps;
+					position.y += ( mouseY - position.y ) * ps;
+				}
 
-
+				// Apply the calculated position to the node (with easing)
+				node.position.x += ( position.x - node.position.x ) * 0.1;
+				node.position.y += ( position.y - node.position.y ) * 0.1;
 
 				// Limit the node position to screen bounds
 				node.position.x = Math.max( Math.min( node.position.x, worldRect.x + worldRect.width ), worldRect.x );
@@ -521,7 +615,6 @@ document.addEventListener("keydown", e => {
 				context.strokeStyle = skin.strokeStyle;
 				context.lineWidth = skin.lineWidth;
 			}
-context.beginPath();
 
 			var cn = getArrayElementByOffset( blob.nodes, 0, -1 ); // current node
 			var nn = getArrayElementByOffset( blob.nodes, 0, 0 ); // next node
@@ -568,7 +661,6 @@ context.beginPath();
 
 			context.stroke();
 			context.fill();
-
 		}
 	}
 
@@ -804,3 +896,5 @@ var canvascollab = new function() {
 
 
 BlobWorld.init();
+
+
