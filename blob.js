@@ -99,27 +99,7 @@ var BlobWorld = new function() {
   { fillStyle: 'rgba(0,0,0,0.8)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 4, backgroundColor: '#bbbbbb', debug: false },
   { fillStyle: 'rgba(155,0,0,0.8)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 0, backgroundColor: '#0088dd', debug: false }
 ];
-var surfaceImg = new Image();
-surfaceImg.src = "slime.png";
-var surfacePosition = { x: 50, y: worldRect.height*0.73 };
-var surfaceWidth = 200;
-var surfaceHeight = 200;
-var surfaceLoaded = false;
 
-surfaceImg.onload = function() {
-    surfaceLoaded = true; // mark that the image is ready
-};
-
-var surfaceImgm = new Image();
-surfaceImgm.src = "slime2.png";
-var surfacePositionm = { x: worldRect.height*0.5*(3.5), y: worldRect.height*0.73 };
-var surfaceWidthm = 200;
-var surfaceHeightm = 200;
-var surfaceLoadedm = false;
-
-surfaceImgm.onload = function() {
-    surfaceLoadedm = true; // mark that the image is ready
-};
 
 
 	this.init = function() {
@@ -476,18 +456,8 @@ document.addEventListener("keydown", e => {
 
 				node.ghost.x = node.position.x;
 				node.ghost.y = node.position.y;
-if(node.position.x > surfacePosition.x &&
-   node.position.x < surfacePosition.x + surfaceWidth &&
-   node.position.y > surfacePosition.y &&
-   node.position.y < surfacePosition.y + surfaceHeight) {
 
 
-
-    // Dampen blob velocity
-    blob.velocity.y *= 0.5;
-    blob.velocity.x *= 0.8;
-}
-var maxStretch = 512;
 			}
 
 			var dragNode = blob.nodes[blob.dragNodeIndex];
@@ -497,8 +467,7 @@ var maxStretch = 512;
 
 				blob.updateNormals();
 			}
-var stickyFactor = 1.2;  // was 0.3, higher = more sticky
-var extraStrength = 1.5; // multiply joint.strength for extra pull
+
 			// Calculation loop
 			for (i = 0, len = blob.nodes.length; i < len; i++) {
 				node = blob.nodes[i];
