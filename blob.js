@@ -96,9 +96,9 @@ var BlobWorld = new function() {
   { fillStyle: 'rgba(255,135,0,1.0)', strokeStyle: '', lineWidth: 0.01, backgroundColor: '#dddddd', debug: false },
   { fillStyle: 'rgba(135,255,0,0.5)', strokeStyle: 'rgba(0,0,0,0.5)', lineWidth: 2, backgroundColor: '#eeeeee', debug: false },
   { fillStyle: 'rgba(255,0,0,0.5)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 3, backgroundColor: '#cccccc', debug: false },
-  { fillStyle: 'rgba(0,0,0,0.8)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 4, backgroundColor: '#bbbbbb', debug: false }
-]
-;
+  { fillStyle: 'rgba(0,0,0,0.8)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 4, backgroundColor: '#bbbbbb', debug: false },
+  { fillStyle: 'rgba(155,0,0,0.8)', strokeStyle: 'rgba(255,255,255,0.5)', lineWidth: 0, backgroundColor: '#0088dd', debug: false }
+];
 var surfaceImg = new Image();
 surfaceImg.src = "slime.png";
 var surfacePosition = { x: 50, y: worldRect.height*0.73 };
@@ -512,34 +512,7 @@ var extraStrength = 1.5; // multiply joint.strength for extra pull
 				position = { x: blob.position.x, y: blob.position.y };
 
 				// Apply the joints
-for( j = 0; j < node.joints.length; j++ ) {
-    joint = node.joints[j];
 
-    var strainX = ( (joint.node.ghost.x - node.ghost.x) - (joint.node.normal.x - node.normal.x) );
-    var strainY = ( (joint.node.ghost.y - node.ghost.y) - (joint.node.normal.y - node.normal.y) );
-
-    joint.strain.x += ( strainX - joint.strain.x ) * stickyFactor;
-    joint.strain.y += ( strainY - joint.strain.y ) * stickyFactor;
-
-    position.x += joint.strain.x * joint.strength * extraStrength;
-    position.y += joint.strain.y * joint.strength * extraStrength;
-}
-            if(node.position.x > surfacePositionm.x &&
-   node.position.x < surfacePositionm.x + surfaceWidthm &&
-   node.position.y > surfacePositionm.y &&
-   node.position.y < surfacePositionm.y + surfaceHeightm) {
-
-    // Push the node outside the image
-    if(node.position.y < surfacePositionm.y + surfaceHeightm/2) {
-        node.position.y = surfacePositionm.y - 1; // stick on top
-    } else {
-        node.position.y = surfacePositionm.y + surfaceHeightm + 1; // stick below
-    }
-
-    // Dampen blob velocity
-    blob.velocity.y *= 0.1;
-    blob.velocity.x *= 0.3;
-}
 
 
 				// Offset by the normal
