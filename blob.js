@@ -481,12 +481,7 @@ if(node.position.x > surfacePosition.x &&
    node.position.y > surfacePosition.y &&
    node.position.y < surfacePosition.y + surfaceHeight) {
 
-    // Push the node outside the image
-    if(node.position.y < surfacePosition.y + surfaceHeight/2) {
-        node.position.y = surfacePosition.y - 1; // stick on top
-    } else {
-        node.position.y = surfacePosition.y + surfaceHeight + 1; // stick below
-    }
+
 
     // Dampen blob velocity
     blob.velocity.y *= 0.5;
