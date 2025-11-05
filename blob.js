@@ -456,16 +456,6 @@ document.addEventListener("keydown", e => {
 
 				node.ghost.x = node.position.x;
 				node.ghost.y = node.position.y;
-if(node.position.x > surfacePosition.x &&
-   node.position.x < surfacePosition.x + surfaceWidth &&
-   node.position.y > surfacePosition.y &&
-   node.position.y < surfacePosition.y + surfaceHeight) {
-
-
-    // Dampen blob velocity
-    blob.velocity.y *= 0.5;
-    blob.velocity.x *= 0.8;
-}
 
 
 
