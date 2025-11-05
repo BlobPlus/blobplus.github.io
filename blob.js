@@ -461,70 +461,12 @@ if(node.position.x > surfacePosition.x &&
    node.position.y > surfacePosition.y &&
    node.position.y < surfacePosition.y + surfaceHeight) {
 
-    // Push the node outside the image
-    if(node.position.y < surfacePosition.y + surfaceHeight/2) {
-        node.position.y = surfacePosition.y - 1; // stick on top
-    } else {
-        node.position.y = surfacePosition.y + surfaceHeight + 1; // stick below
-    }
 
     // Dampen blob velocity
     blob.velocity.y *= 0.5;
     blob.velocity.x *= 0.8;
 }
-var maxStretch = 512;
-			}
 
-			var dragNode = blob.nodes[blob.dragNodeIndex];
-			if( dragNode ) {
-				blob.rotation.target = Math.atan2( mouseY - blob.position.y - ( blob.radius * 4 ), mouseX - blob.position.x ); // Get angle between blob & mouse
-				blob.rotation.current += ( blob.rotation.target - blob.rotation.current ) * 0.2;
-
-				blob.updateNormals();
-			}
-var stickyFactor = 1.2;  // was 0.3, higher = more sticky
-var extraStrength = 1.5; // multiply joint.strength for extra pull
-			// Calculation loop
-			for (i = 0, len = blob.nodes.length; i < len; i++) {
-				node = blob.nodes[i];
-
-				// Move towards the normal target
-				node.normal.x += ( node.normalTarget.x - node.normal.x ) * 0.05;
-				node.normal.y += ( node.normalTarget.y - node.normal.y ) * 0.05;
-
-				// This point will be used as the new position for this node,
-				// after all factors have been applied
-				position = { x: blob.position.x, y: blob.position.y };
-
-				// Apply the joints
-for( j = 0; j < node.joints.length; j++ ) {
-    joint = node.joints[j];
-
-    var strainX = ( (joint.node.ghost.x - node.ghost.x) - (joint.node.normal.x - node.normal.x) );
-    var strainY = ( (joint.node.ghost.y - node.ghost.y) - (joint.node.normal.y - node.normal.y) );
-
-    joint.strain.x += ( strainX - joint.strain.x ) * stickyFactor;
-    joint.strain.y += ( strainY - joint.strain.y ) * stickyFactor;
-
-    position.x += joint.strain.x * joint.strength * extraStrength;
-    position.y += joint.strain.y * joint.strength * extraStrength;
-}
-            if(node.position.x > surfacePositionm.x &&
-   node.position.x < surfacePositionm.x + surfaceWidthm &&
-   node.position.y > surfacePositionm.y &&
-   node.position.y < surfacePositionm.y + surfaceHeightm) {
-
-    // Push the node outside the image
-    if(node.position.y < surfacePositionm.y + surfaceHeightm/2) {
-        node.position.y = surfacePositionm.y - 1; // stick on top
-    } else {
-        node.position.y = surfacePositionm.y + surfaceHeightm + 1; // stick below
-    }
-
-    // Dampen blob velocity
-    blob.velocity.y *= 0.1;
-    blob.velocity.x *= 0.3;
-}
 
 
 				// Offset by the normal
